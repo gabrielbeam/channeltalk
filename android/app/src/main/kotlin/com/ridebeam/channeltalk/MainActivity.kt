@@ -10,14 +10,16 @@ import android.util.Log
 import com.leanplum.Leanplum
 import com.leanplum.LeanplumActivityHelper
 import com.leanplum.annotations.Parser
-import com.ridebeam.channeltalk.LeanplumMessage
 import com.zoyi.channel.plugin.android.ChannelIO
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.BinaryMessenger
 
 class MainActivity: FlutterActivity(), ChannelIOApi {
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ChannelIO.initialize(application)
+    }
     companion object {
         const val TAG = "MainActivity"
         var mLeanplumApi: LeanplumMessage.BridgeLeanplumMsgCallbacks? = null
@@ -26,11 +28,11 @@ class MainActivity: FlutterActivity(), ChannelIOApi {
         super.configureFlutterEngine(flutterEngine)
         ChannelIOApi.setUp(flutterEngine.dartExecutor.binaryMessenger, this)
         val binaryMessenger: BinaryMessenger = flutterEngine.dartExecutor.binaryMessenger
-        LeanplumMessage.BridgeLeanplumNativeMethod.setup(
-            binaryMessenger,
-            BridgeLeanplumNativeMethodImpl(this, this.application)
-        )
-        mLeanplumApi = LeanplumMessage.BridgeLeanplumMsgCallbacks(binaryMessenger)
+//        LeanplumMessage.BridgeLeanplumNativeMethod.setup(
+//            binaryMessenger,
+//            BridgeLeanplumNativeMethodImpl(this, this.application)
+//        )
+        //mLeanplumApi = LeanplumMessage.BridgeLeanplumMsgCallbacks(binaryMessenger)
 
 
     }
